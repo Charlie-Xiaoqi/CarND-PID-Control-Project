@@ -1,0 +1,17 @@
+The implementation of the P, I, D control is done by code 
+Kp* p_error + Ki * i_error + Kd * d_error
+in the line 31 of PID.cpp file.
+
+Kp, the term before P_error, stands for the proportional error. This term will decide the 
+weight of the proportional error (the current car position with respect to the center location) 
+in the steering value, when the car are off the center a lot, this term will dominate.
+
+Ki, the term before I_error, stands for the integration error. When the accumulated error of 
+the current location with respect to the center location becomes large, this term will dominate.
+
+Kd, the term before d_error, stands for the differential error. To avoid the car move periodically 
+around the center line (like a sine wave), we use this term to include the temporal derivative of 
+the crosstrack error. This can make the car move more smoothly.
+
+Those three parameters: Kp, Ki and Kd are selected manually. I tried [-0.5, 0, -0.5], [-0.8,0,-0.2],
+[-0.72,0,-0.28] etc. And find that [-0.75, 0, -0.25] are the best answer among what I tried.
